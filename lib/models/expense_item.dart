@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class ExpenseItem {
   final String expenseDescription;
   final DateTime expenseDate;

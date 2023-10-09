@@ -1,7 +1,13 @@
+import 'package:finance_app/data/expense_data.dart';
 import 'package:finance_app/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:provider/provider.dart';
+
+void main() async {
+  await Hive.initFlutter();
+  await Hive.openBox('local_db');
   runApp(const MyApp());
 }
 
@@ -10,9 +16,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomePage(),
+    return ChangeNotifierProvider(
+      create: (context) => ExpenseData(),
+      child: MaterialApp(
+        theme: ThemeData(primaryColor: Colors.blueGrey),
+        themeMode: ThemeMode.dark,
+        debugShowCheckedModeBanner: false,
+        home: const HomePage(),
+      ),
     );
   }
 }
